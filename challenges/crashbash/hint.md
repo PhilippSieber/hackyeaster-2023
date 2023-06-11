@@ -1,0 +1,1 @@
+Some characters are forbidden, in the whole string you enter.

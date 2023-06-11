@@ -1,0 +1,1 @@
+The screenshot was taken on a Pixel 6 without the latest security updates.

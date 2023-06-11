@@ -1,0 +1,20 @@
+version: '3'
+services:
+  ghostinashell4:
+    build: .
+    image: he2023/ghostinashell4
+    restart: always
+    networks:
+      - challengenet
+    ports:
+      - "2306:22"
+    environment:
+      - SSH_USERS=blinky:1000:1000
+      - SSH_ENABLE_PASSWORD_AUTH=true
+    volumes:
+      - keys:/etc/ssh/keys
+volumes:
+  keys:
+networks:
+  challengenet:
+    external: true

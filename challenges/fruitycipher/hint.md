@@ -1,0 +1,3 @@
+- the plaintext consist of lowercase letters (and spaces) only
+- there are more than 26 symbols
+- 🍏 == 🍎

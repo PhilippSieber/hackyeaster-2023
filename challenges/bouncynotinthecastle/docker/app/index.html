@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Bouncy not in the castle</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link type="text/css" rel="stylesheet" href="main.css">
+<script src="background.png.js"></script>
+</head>
+<body>
+
+
+	<script type="module">
+
+			import * as THREE from './three.module.js';
+            import Stats from './stats.module.js';
+
+			
+			const VSTEP = 20;		// Speed increase per step
+			const VDAMP = 0.98;		// Damping because of friction
+			const EGGSIZE = 250;	// egg size in pixel
+
+			let container, stats;
+
+			let camera, scene, renderer;
+
+			const eggs = [];
+
+			let mouseX = 0, mouseY = 0;
+
+			let windowHalfX = window.innerWidth / 2;
+			let windowHalfY = window.innerHeight / 2;
+
+			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+			// Clock for smooth movement on slower PCs
+			const clock = new THREE.Clock();
+
+			init();
+			animate();
+
+			function init() {
+
+				// canvas
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				// stats
+				stats = new Stats();
+				container.appendChild( stats.dom );
+
+				// camera
+				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 100000 );
+				camera.position.z = 3200;
+
+				// scene
+				scene = new THREE.Scene();
+				scene.background = new THREE.CubeTextureLoader()
+					.setPath( 'textures/cube/' )
+					.load( [ 'posx.jpg', 'negx.jpg', 'posy.jpg', 'negy.jpg', 'posz.jpg', 'negz.jpg' ] );
+
+				// geometry (egg)
+				// points - (x, y) pairs are rotated around the y-axis
+				var points = [];
+				var SIZE = 150;
+				for ( var deg = 0; deg <= 180; deg += 6 ) {
+					var rad = Math.PI * deg / 180;
+    				var point = new THREE.Vector2( ( 0.72 + .08 * Math.cos( rad ) ) * Math.sin( rad ) * EGGSIZE, - Math.cos( rad ) * EGGSIZE ); // the "egg equation"
+    				//console.log( point ); // x-coord should be greater than zero to avoid degenerate triangles; it is not in this formula.
+    				points.push( point );
+				}
+				const eggGeometry =  new THREE.LatheBufferGeometry( points, 32 );
+
+				// generate all eggs
+				for ( let x = 0; x < 21; x ++ ) {
+						for ( let z = 0; z < 21; z ++ ) {
+						const mesh = new THREE.Mesh( eggGeometry, getRandomMaterial(x, z));
+
+						mesh.position.x = x * 10000 / 21 - 5000;
+						mesh.position.y = 5000 + Math.random() * 5000;
+						mesh.position.z = z *  10000 / 21 - 5000;
+						mesh.userData.vy = 0;
+
+						scene.add(mesh);
+						eggs.push( mesh );
+					}
+				}
+				
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function getRandomColor(x, z) {
+				let pos = (x + z * 21) * 6;
+				let val = parseInt(hex.substring(pos, pos + 6), 16);
+				console.log("x:" + x + ", z: " + z + ", val: " + val )
+				return val;	
+			}
+
+			function getRandomMaterial(x, z) {
+				let material = new THREE.MeshBasicMaterial( {color:  getRandomColor(x, z), envMap: scene.background, refractionRatio: 0.95 } );
+	 			material.envMap.mapping = THREE.CubeRefractionMapping;
+				return material;
+			}
+
+			function onWindowResize() {
+				windowHalfX = window.innerWidth / 2;
+				windowHalfY = window.innerHeight / 2;
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+
+			function onDocumentMouseMove( event ) {
+				mouseX = ( event.clientX - windowHalfX ) * 10;
+				mouseY = ( event.clientY - windowHalfY ) * 10;
+			}
+
+			//
+			function animate() {
+				requestAnimationFrame( animate );
+				render();
+				stats.update();
+			}
+
+			function render() {
+				const delta = clock.getDelta();
+				for ( let i = 0, il = eggs.length; i < il; i ++ ) {
+					const egg = eggs[i];
+					egg.position.y += egg.userData.vy;
+					egg.userData.vy -= delta * VSTEP;
+
+					if (egg.position.y < 0) {
+						egg.position.y = - egg.position.y;
+						egg.userData.vy = - egg.userData.vy * VDAMP;
+					}
+				}
+
+				camera.position.x += ( mouseX - camera.position.x ) * .05;
+				camera.position.y += ( - mouseY - camera.position.y ) * .05;
+
+				camera.lookAt( scene.position );
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+
+</body>
+</html>

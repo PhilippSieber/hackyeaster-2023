@@ -1,0 +1,1 @@
+Cut a beautiful quilt like this into pieces? A shame, but maybe necessary!

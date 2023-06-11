@@ -1,0 +1,13 @@
+version: '3'
+services:
+  crashbash:
+    build: .
+    image: he2023/crashbash
+    restart: always
+    networks:
+      - challengenet
+    ports:
+      - "2303:1337"
+networks:
+  challengenet:
+    external: true

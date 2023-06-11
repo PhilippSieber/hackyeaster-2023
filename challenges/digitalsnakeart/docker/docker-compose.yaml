@@ -1,0 +1,13 @@
+version: '3'
+services:
+  digitalsnakeart:
+    build: .
+    image: he2023/digitalsnakeart
+    restart: always
+    networks:
+      - challengenet
+    ports:
+      - '2307:8080'
+networks:
+  challengenet:
+    external: true

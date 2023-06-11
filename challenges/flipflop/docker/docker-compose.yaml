@@ -1,0 +1,13 @@
+version: '3'
+services:
+  flipflop:
+    build: .
+    image: he2023/flipflop
+    restart: always
+    networks:
+      - challengenet
+    ports:
+      - "2310:8080"
+networks:
+  challengenet:
+    external: true

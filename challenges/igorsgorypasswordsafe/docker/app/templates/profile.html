@@ -1,0 +1,9 @@
+{% extends "template.html" %} {% block content %}
+<h1 class="title">Welcome, {{ current_user.name }}!</h1>
+
+<div class="profile row">
+	<div class="profile-item">
+		<div class="item">You have role {{ current_user.role }}</div>
+	</div>
+</div>
+{% endblock %}

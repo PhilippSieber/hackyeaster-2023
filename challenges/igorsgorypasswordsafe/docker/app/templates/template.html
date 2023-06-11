@@ -1,0 +1,49 @@
+<html>
+
+<head>
+	<title>Igors Gory Passwordsafe</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+	<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+	<script src="{{ url_for('static', filename='app.js') }}" language="javascript"></script>
+</head>
+
+<body>
+	<div id="head">
+		<img id="logo" src="{{ url_for('static', filename='logo2.png') }}" />
+		{% if current_user.is_authenticated %}
+		<img id="eyes" src="{{ url_for('static', filename='green.png') }}" />
+		{% endif %} {% if not current_user.is_authenticated %}
+		<img id="eyes" src="{{ url_for('static', filename='red.png') }}" />
+		{% endif %}
+		<h1>Igors Gory Passwordsafe</h1>
+	</div>
+	<hr>
+	<div class="menu row">
+		{% if current_user.is_authenticated %}
+		<div class="item">
+			Menu: <a href="/add">Add password</a> | <a href="/show">Show all</a>
+		</div>
+		<div class="item">
+			<form method="GET" action="/search">
+				Search: <input type="text" name="search" /> <input class="button" type="submit" name="submit"
+					value="Search" />
+			</form>
+		</div>
+		<div class="item-right">
+			||| <a href="/profile">Profile</a> | <a href="/logout">Logout</a>
+		</div>
+		{% endif %} {% if not current_user.is_authenticated %}
+		<div class="item-right">
+			||| <a href="/login">Login</a> | <a href="/signup">Sign Up</a>
+		</div>
+		{% endif %}
+	</div>
+	<hr>
+	<div id="content">{% block content %} {% endblock %}</div>
+	<div id="footer">
+		<hr>
+		<p>Created by inik / 2023</p>
+	</div>
+</body>
+
+</html>

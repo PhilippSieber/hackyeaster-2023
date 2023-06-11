@@ -1,0 +1,13 @@
+version: '3'
+services:
+  jason:
+    build: .
+    image: he2023/jason
+    restart: always
+    networks:
+      - challengenet
+    ports:
+      - "2304:1337"
+networks:
+  challengenet:
+    external: true

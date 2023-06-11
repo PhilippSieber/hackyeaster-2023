@@ -1,0 +1,37 @@
+{% extends "template.html" %} {% block content %}
+<div class="column is-4 is-offset-4">
+	<h1 class="title">Sign Up</h1>
+	<div class="signup row">
+		<div class="signup-item">
+
+			{% with messages = get_flashed_messages() %} {% if messages %}
+			<div class="notification is-danger">
+				{{ messages[0] }}. Go to <a href="{{ url_for('login') }}">login
+					page</a>.
+			</div>
+			{% endif %} {% endwith %}
+			<form method="POST" action="/signup">
+				<div class="item">
+					<input class="input" type="text" name="name" placeholder="Name"
+						autofocus="">
+				</div>
+				<div class="item">
+					<input class="input" type="email" name="email" placeholder="Email">
+				</div>
+				<div class="item">
+					<input class="input" type="text" name="login" placeholder="Login">
+				</div>
+
+				<div class="item">
+					<input class="input" type="password" name="password"
+						placeholder="Password">
+				</div>
+				<div class="item">
+					<input class="button" type="submit" name="submit"
+						value="Sign Up" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

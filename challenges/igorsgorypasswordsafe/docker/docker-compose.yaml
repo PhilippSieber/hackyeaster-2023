@@ -1,0 +1,24 @@
+version: '3'
+services:
+  app:
+    build: ./app
+    image: he2023/igorsgorypasswordsafe-app
+    restart: always
+    links:
+      - db
+    networks:
+      - challengenet
+    ports:
+      - "2312:5000" 
+  db:
+    build: ./db
+    image: he2023/igorsgorypasswordsafe-db
+    restart: always
+    command: --default-authentication-plugin=caching_sha2_password
+    networks:
+      - challengenet
+    environment:
+      MYSQL_ROOT_PASSWORD: ClWKlFMpGHHmJ3OfSE80
+networks:
+  challengenet:
+    external: true

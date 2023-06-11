@@ -1,0 +1,28 @@
+version: '3'
+services:
+  stapp:
+    build: app/.
+    image: he2023/servingthings-app
+    restart: always
+    networks:
+      - challengenet
+    ports:
+      - "2316:5000"
+  stsrv:
+    build: srv/.
+    image: he2023/servingthings-srv
+    restart: always
+    networks:
+      challengenet:
+        aliases:
+        - colors
+        - quotes
+        - stars
+        - cheese
+        - flags
+        - wine
+        - meals
+        - trek
+networks:
+  challengenet:
+    external: true

@@ -1,0 +1,13 @@
+version: '3'
+services:
+  codelocked:
+    build: .
+    image: he2023/codelocked
+    restart: always
+    networks:
+      - challengenet
+    ports:
+      - "2311:80"
+networks:
+  challengenet:
+    external: true

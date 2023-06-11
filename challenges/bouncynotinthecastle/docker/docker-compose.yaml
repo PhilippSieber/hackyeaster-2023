@@ -1,0 +1,13 @@
+version: '3'
+services:
+  bouncynotinthecastle:
+    build: .
+    image: he2023/bouncynotinthecastle
+    restart: always
+    networks:
+      - challengenet
+    ports:
+      - "2308:80"
+networks:
+  challengenet:
+    external: true

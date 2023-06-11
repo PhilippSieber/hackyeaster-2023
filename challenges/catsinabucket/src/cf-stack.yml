@@ -1,0 +1,107 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+
+  BucketName:
+    Type: String
+    Description: Bucket Name
+    Default: cats-in-a-bucket
+  UserName:
+    Type: String
+    Description: User Name
+    Default: misterbuttons
+  RoleName:
+    Type: String
+    Description: Role Name
+    Default: captainclaw
+
+Resources:
+
+  User:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: !Ref UserName
+
+  AccessKey:
+    Type: AWS::IAM::AccessKey
+    DependsOn: User
+    Properties:
+      Status: Active
+      UserName: !Ref UserName
+
+  Role:
+    Type: 'AWS::IAM::Role'
+    DependsOn: User
+    Properties:
+      RoleName: !Ref RoleName
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+                - !Sub 'arn:aws:iam::${AWS::AccountId}:user/${User}'
+            Action:
+              - 'sts:AssumeRole'
+
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Description: he3023 Cats in a Bucket
+    Properties:
+      BucketName: !Ref BucketName
+          
+  S3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    DependsOn:
+      - User
+      - Role
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Statement:
+          -
+            Action:
+              - s3:ListBucket
+              - s3:GetBucketPolicy
+            Effect: Allow
+            Resource:
+              - !Sub arn:aws:s3:::${S3Bucket}
+            Principal:
+              AWS:
+                - !Sub 'arn:aws:iam::${AWS::AccountId}:user/${User}'
+          -
+            Action:
+              - s3:GetObject
+            Effect: Allow
+            Resource:
+              - !Sub arn:aws:s3:::${S3Bucket}/cat1.jpg
+              - !Sub arn:aws:s3:::${S3Bucket}/cat2.jpg
+              - !Sub arn:aws:s3:::${S3Bucket}/cat3.jpg
+            Principal:
+              AWS:
+                - !Sub 'arn:aws:iam::${AWS::AccountId}:user/${User}' 
+          -
+            Action:
+              - s3:ListBucket
+            Effect: Allow
+            Resource:
+              - !Sub arn:aws:s3:::${S3Bucket}
+            Principal:
+              AWS:
+                - !Sub 'arn:aws:iam::${AWS::AccountId}:role/${Role}'
+          -
+            Action:
+              - s3:GetObject
+            Effect: Allow
+            Resource:
+              - !Sub arn:aws:s3:::${S3Bucket}/cat4.jpg
+            Principal:
+              AWS:
+                - !Sub 'arn:aws:iam::${AWS::AccountId}:role/${Role}'
+
+Outputs:
+
+  AccessKey:
+    Value: !Ref AccessKey
+  SecretAccessKey:
+    Value: !GetAtt AccessKey.SecretAccessKey

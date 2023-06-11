@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="css/fonts.css"/>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="css/milligram.css"/>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+<div class="container" style="width:720px; padding-top:20px;">
+    <div class="row">
+        <div class="column column-90">
+            <h1 class="title">🐍 Digital Snake Art 🐍</h1>
+        </div>
+        <div class="column column-10"></div>
+    </div>
+    <div class="row">
+        <div class="column column-80">
+            <img th:src="${image64}"/>
+            <h3 th:text="${name}"/>
+            <h4 th:text="'source: ' + ${source}"/>
+            <h4 th:text="'resolution: ' + ${resolution}"/>
+            <br/><br/><br/>
+            <a href="/">back</a>
+        </div>
+        <div class="column column-20"></div>
+    </div>
+</div>
+</div>
+</body>
+</html>

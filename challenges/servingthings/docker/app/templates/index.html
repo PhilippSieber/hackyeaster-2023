@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Serving Things</title>
+    <link rel="stylesheet"
+	    href="{{ url_for('static', filename='app.css') }}">
+	<script	src="{{ url_for('static', filename='jquery-3.6.3.min.js') }}" language="javascript"></script>
+    <script	src="{{ url_for('static', filename='app.js') }}" language="javascript"></script>
+</head>
+
+<body>
+	<div id="menu">
+        Get: <a id="quotes" href="#">Quotes</a> | <a id="colors" href="#">Colors</a> | <a id="stars" href="#">Stars</a> | 
+		<a id="cheese" href="#">Cheese</a> | <a id="wine" href="#">Wine</a> | <a id="meals" href="#">Swiss Meals</a> | 
+		<a id="trek" href="#">The Trek</a> | <a id="flag" href="#">Flag</a>
+	</div>
+	<div id="text">
+	</div>
+	<div id="footer">
+		<div id="created">
+			Created by inik / 2023
+		</div>
+	</div>
+</body>	
+</html>

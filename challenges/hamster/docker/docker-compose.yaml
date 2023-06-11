@@ -1,0 +1,13 @@
+version: '3'
+services:
+  hamster:
+    build: .
+    image: he2023/hamster
+    restart: always
+    networks:
+      - challengenet
+    ports:
+      - "2301:1337"
+networks:
+  challengenet:
+    external: true

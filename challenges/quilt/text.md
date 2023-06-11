@@ -1,0 +1,1 @@
+A warm, sunny day - perfect weather for a picnic! But what's that - did the bunnies really bring the nice quilt from the living room as a blanket? 

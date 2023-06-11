@@ -1,0 +1,19 @@
+version: "3.1"
+services:
+  hell:
+    build: .
+    image: he2023/hell
+    restart: always
+    entrypoint: ./ynetd
+    command: ./hell
+    stdin_open: true
+    tty: true
+    labels:
+        - "com.centurylinklabs.watchtower.enable=false"
+    networks:
+      - challengenet
+    ports:
+      - "2309:1024"
+networks:
+  challengenet:
+    external: true

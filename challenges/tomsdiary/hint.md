@@ -1,0 +1,1 @@
+Neither brute force nor word lists are necessary.

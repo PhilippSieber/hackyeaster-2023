@@ -1,0 +1,13 @@
+version: '3'
+services:
+  goinground:
+    build: .
+    image: he2023/goinground
+    restart: always
+    networks:
+      - challengenet
+    ports:
+      - "2305:2000"
+networks:
+  challengenet:
+    external: true

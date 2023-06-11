@@ -1,0 +1,1 @@
+Non est facilis labor fugere infernum, quia est *fundamentum* omnis mali ac nequitiarum. Solum ultima tua *clamor* te *liberabit* ex hoc loco. Sed ante te *volvendus* campis ad *sinistram* et ad *dexteram* et evadendus insidias mali *Xor*xis. Sed ne putes id facile fore, qui victoriam quaerit, oportet *ei mentem* habere quid *in hoc labore vero est momenti*.

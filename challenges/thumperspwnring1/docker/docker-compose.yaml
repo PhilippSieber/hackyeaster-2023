@@ -1,0 +1,13 @@
+version: '3'
+services:
+  thumperspwnring1:
+    build: .
+    image: he2023/thumperspwnring1
+    restart: always
+    networks:
+      - challengenet
+    ports:
+      - "2315:45678"
+networks:
+  challengenet:
+    external: true

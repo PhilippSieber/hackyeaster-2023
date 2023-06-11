@@ -1,0 +1,13 @@
+version: '3'
+services:
+  coneyislandhackers2:
+    build: .
+    image: he2023/coneyislandhackers2
+    restart: always
+    networks:
+      - challengenet
+    ports:
+      - "2302:1337"
+networks:
+  challengenet:
+    external: true

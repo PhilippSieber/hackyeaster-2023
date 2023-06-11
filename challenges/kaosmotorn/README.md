@@ -1,0 +1,15 @@
+# solution
+- find out that lines 8 and 9 contain text output -> the flag
+- find 5 cells which are not calculated by a formula
+  - E2, J6, B7, D14, G14
+- write a script which bruteforces all combinations of these five cells
+  - values 0 to 9
+- solution:
+    - E2 = 8
+    - J6 = 8
+    - B7 = 2
+    - D14 = 1
+    - G14 = 5
+- alternative:
+  - get formulas for known flag letters (`he2023{`, `}`)
+  - solve, e.g. using Z3 solver
