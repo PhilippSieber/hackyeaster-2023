@@ -1,8 +1,3 @@
-
-
-The public GitHub repo for Hacky Easter 2023 is live! Challenge sources, stats, write-ups, and more! 
-
-
 # HackyEaster 2023
 
 ## Thank You
